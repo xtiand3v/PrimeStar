@@ -9,7 +9,7 @@ if(mysqli_num_rows($getClients) >= 1){
     <tr class="text-center">
         <th scope="row"><?php echo $num++; ?></th>
         <th scope="row"><?php echo $dataClients['client_id']; ?></th>
-        <td class="text-left"><?php echo $dataClients['client_firstname']." ".$dataClients['client_lastname']; ?><br><?php echo $dataClients['client_email']; ?></td>
+        <td class="text-left"><?php echo $dataClients['client_fullname']; ?><br><?php echo $dataClients['client_email']; ?></td>
         
         <td><?php echo $dataClients['client_added']; ?></td>
     </tr>

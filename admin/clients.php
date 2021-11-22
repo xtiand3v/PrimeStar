@@ -111,88 +111,48 @@ include ('inc/nav.php');
         </div>
     </div>
 </div>
-<div class="modal fade" id="addCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form id="regForm" method="POST">
-      <div class="modal-body">
-                    <div class="row mx-auto">
-                  <fieldset class="form-group col-12">
-                    <h5>1. Personal Information</h5>
-                  </fieldset>
-                  <fieldset class="form-group col-12 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-muted">First Name <code>*</code></p>
-                    <input type="text" class="form-control" id="first_name" name="first_name" required>
-                  </fieldset>
-                  <fieldset class="form-group col-12 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-muted">Last Name <code>*</code></p>
-                    <input type="text" class="form-control" id="last_name" name="last_name" required>
-                  </fieldset>
-                  <fieldset class="form-group col-12 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-muted">Company Name</p>
-                    <input type="text" class="form-control" id="company_name" name="company_name">
-                  </fieldset>
-                  <fieldset class="form-group col-12 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-muted">Phone Number <code>*</code></p>
-                    <input type="number" class="form-control" id="phone_number" name="phone_number" required>
-                  </fieldset>
-                  <fieldset class="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-muted">Address</p>
-                    <textarea class="form-control" id="address" name="address"></textarea>
-                  </fieldset>
-                  
-                  <fieldset class="form-group col-12">
-                    <h5>2. Account Information</h5>
-                  </fieldset>
-                  <fieldset class="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-muted">Email Address <code>*</code></p>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="john.doe@gmail.com">
-                  </fieldset>
-                  <fieldset class="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-muted">Password  <code>*</code></p>
-                    <input type="password" class="form-control" id="password" name="password" required placeholder="*********">
-                    <small id="validatePassword">Password must be 8 characters long.</small>
-                  </fieldset>
-                  <fieldset class="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-muted">Confirm Password  <code>*</code></p>
-                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required placeholder="*********">
-                    <small id="checkMatch">Password did not match.</small>
-                    <small id="matched">Password matched.</small>
-                  </fieldset>
-                  
-                  <fieldset class="form-group col-12">
-                    <h5>3. Subscription</h5>
-                  </fieldset>
-                  <fieldset class="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-muted">List of Subscription<code>*</code></p>
-                    <select class="form-control" name="subscription" required>
-                        <option value="1">Lite Plan</option>
-                        <option value="2">Pro Plan</option>
-                        <option value="3">Premium Plan</option>
-                    </select>
-                  </fieldset>
-                  </div>
-                  <div class="form-group text-center" id="progress">
-                      
-                  </div>
-      
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" name="addCustomer" id="addCustomer" class="btn btn-warning" value="Submit">
-      </div>
-    </form>
-    </div>
-  </div>
-</div>
-
-<!-- ////////////////////////////////////////////////////////////////////////////-->
 <?php 
 include('inc/footer.php');
+include('inc/client_modal.php');
 ?>
+<script>
+$(function(){
+  $(document).on('click', '.edit', function(e){
+    e.preventDefault();
+    $('#editCustomer').modal('show');
+    var id = $(this).data('id');
+    getRow(id);
+  });
+
+
+  $("#editCustomer").on("hidden.bs.modal", function () {
+      $('.append_items').remove();
+  });
+
+  
+
+  $(document).on('click', '.delete', function(e){
+    e.preventDefault();
+    $('#deleteCustomer').modal('show');
+    var id = $(this).data('id');
+    getRow(id);
+  });
+});
+
+function getRow(id){
+  $.ajax({
+    type: 'POST',
+    url: 'clients_row.php',
+    data: {id:id},
+    dataType: 'json',
+    success: function(response){
+      $('#client_id').val(response.client_id);
+      $('#edit_name').val(response.client_fullname);
+      $('#editphone_number').val(response.client_contact);
+      $('#editpassword').val(response.password);
+      $('#editemail').val(response.client_email);
+      $('#editaddress').text(response.client_address);
+    }
+  });
+}
+</script>

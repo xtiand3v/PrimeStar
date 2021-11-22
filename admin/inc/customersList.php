@@ -9,11 +9,14 @@ if(mysqli_num_rows($getClients) >= 1){
     <tr class="text-center">
         <th scope="row"><?php echo $num++; ?></th>
         <th scope="row"><?php echo $dataClients['client_id']; ?></th>
-        <td class="text-left"><?php echo $dataClients['client_firstname']." ".$dataClients['client_lastname']; ?><br><?php echo $dataClients['client_email']; ?></td>
+        <td class="text-left"><?php echo $dataClients['client_fullname']; ?><br><?php echo $dataClients['client_email']; ?></td>
         <td></td>
         <td></td>
         <td><?php echo $dataClients['client_added']; ?></td>
-        <td><a href="" class="btn btn-danger btn-sm">DNC</a></td>
+        <td>
+            <button class="btn btn-success edit btn-sm" data-id="<?php echo $dataClients['client_id']; ?>" data-toggle="modal" type="button">Edit</button>
+            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteCustomer" type="button">Delete</button>
+        </td>
     </tr>
 
     <?php
