@@ -15,7 +15,7 @@ if(mysqli_num_rows($getClients) >= 1){
         <td><?php echo $dataClients['client_added']; ?></td>
         <td>
             <button class="btn btn-success edit btn-sm" data-id="<?php echo $dataClients['client_id']; ?>" data-toggle="modal" type="button">Edit</button>
-            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteCustomer" type="button">Delete</button>
+            <button class="btn delete btn-danger btn-sm" data-id="<?php echo $dataClients['client_id']; ?>" data-toggle="modal" type="button">Delete</button>
         </td>
     </tr>
 

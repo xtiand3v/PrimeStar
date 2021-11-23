@@ -161,10 +161,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="regForm" method="POST">
+      <form id="delete" action="client_delete.php" method="POST">
       <div class="modal-body">
                     <div class="row mx-auto">
-                <input type="hidden" class="clientid" id="client_id" name="id">
+                <input type="hidden" class="client_id" name="id">
                         <h1 class="text-center">
                             Delete this data?
                         </h1>

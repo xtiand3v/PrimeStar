@@ -73,6 +73,30 @@ include ('inc/nav.php');
                 <div class="col-xl-12 col-lg-12">
                     <div class="card">
                         <div class="card-header pb-0">
+                          
+<!-- Notification -->
+<?php
+        if(isset($_SESSION['error'])){
+          echo "
+            <div class='alert alert-danger alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              <h4><i class='icon fa fa-warning'></i> Error!</h4>
+              ".$_SESSION['error']."
+            </div>
+          ";
+          unset($_SESSION['error']);
+        }
+        if(isset($_SESSION['success'])){
+          echo "
+            <div class='alert alert-success alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              <h4><i class='icon fa fa-check'></i> Success!</h4>
+              ".$_SESSION['success']."
+            </div>
+          ";
+          unset($_SESSION['success']);
+        }
+      ?>
                             <div class="form-group">
                                     <button class="btn btn-success btn-sm btn-min-width mr-1" data-toggle="modal" data-target="#addCustomer" type="button">Add New Customer</a>
                                 </div>
@@ -147,6 +171,7 @@ function getRow(id){
     dataType: 'json',
     success: function(response){
       $('#client_id').val(response.client_id);
+      $('.client_id').val(response.client_id);
       $('#edit_name').val(response.client_fullname);
       $('#editphone_number').val(response.client_contact);
       $('#editpassword').val(response.password);
